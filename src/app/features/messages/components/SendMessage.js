@@ -22,7 +22,7 @@ class SendMessage extends Component {
                     fluid
                     placeholder = 'Enter Message'
                     action = {
-                        <Button onClick = { this._onSubmit } value = 'Send' />
+                        <Button onClick = { this._onSubmit } color = 'teal' icon = 'chevron right'/>
                     }
                     value = { this.state.message }
                     onChange = { this._onChange }
