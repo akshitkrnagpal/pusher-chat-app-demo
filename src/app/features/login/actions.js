@@ -1,9 +1,9 @@
 import { LOGIN_USER, LOGOUT_USER } from './actionTypes';
 
-export function loginUser(username) {
+export function loginUser(id) {
     return {
         type: LOGIN_USER,
-        username
+        id
     }
 }
 

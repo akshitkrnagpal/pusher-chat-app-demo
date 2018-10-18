@@ -16,7 +16,7 @@ class App extends Component {
 
 function _mapStateToProps(state) {
     return {
-        _loggedIn: state.login.username !== undefined
+        _loggedIn: state.login.id !== undefined
     }
 }
 

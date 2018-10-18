@@ -1,7 +1,7 @@
 import { LOGIN_USER, LOGOUT_USER } from './actionTypes';
 
 const DEFAULT_STATE = {
-    username: undefined
+    id: undefined
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -9,12 +9,12 @@ export default (state = DEFAULT_STATE, action) => {
         case LOGIN_USER:
             return {
                 ...state,
-                username: action.username
+                id: action.id
             };
         case LOGOUT_USER:
             return {
                 ...state,
-                username: undefined
+                id: undefined
             }
         default:
             return state;
