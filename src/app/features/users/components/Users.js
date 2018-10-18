@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Button, Image, Step, Header } from 'semantic-ui-react';
 
-import { WindowScroller, List } from 'react-virtualized'
+import { AutoSizer, List } from 'react-virtualized'
 
 import pusher from '../../../pusher';
 import { logoutUser } from '../../login';
@@ -70,7 +70,7 @@ class Users extends Component {
             (user) => this._presenceChannel.members.me.id !== user.id
         );
         return (
-            <WindowScroller>
+            <AutoSizer>
             {
                 (props) => (
                     <List
@@ -83,7 +83,7 @@ class Users extends Component {
                     />
                 )
             }
-            </WindowScroller>
+            </AutoSizer>
         );
     }
 

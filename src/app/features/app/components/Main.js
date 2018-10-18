@@ -7,16 +7,14 @@ import { Users } from '../../users';
 class Main extends Component {
     render() {
         return (
-            <Grid>
-                <Grid.Row stretched divided columns = 'equal'>
-                    <Grid.Column style = {{ maxWidth: 400, padding: 0 }}>
-                        <Users />
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Messages />
-                        <SendMessage />
-                    </Grid.Column>
-                </Grid.Row>
+            <Grid columns = 'equal' padded>
+                <Grid.Column style = {{ maxWidth: 400, padding: 0 }}>
+                    <Users />
+                </Grid.Column>
+                <Grid.Column>
+                    <Messages />
+                    <SendMessage />
+                </Grid.Column>
             </Grid>
         );
     }
