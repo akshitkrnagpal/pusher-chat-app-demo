@@ -17,7 +17,7 @@ class Login extends Component {
     }
     render() {
         return (
-            <Grid textAlign = 'center'>
+            <Grid textAlign = 'center' verticalAlign = 'middle' style = {{ height: '100%' }}>
                 <Grid.Column style = {{ maxWidth: 450 }} >
                     <Form size = 'large'>
                         <Form.Input
