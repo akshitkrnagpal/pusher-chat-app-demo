@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Button, Image, Step, Header } from 'semantic-ui-react';
 
+import { WindowScroller, List } from 'react-virtualized'
+
 import pusher from '../../../pusher';
 import { logoutUser } from '../../login';
 import { addUser, removeUser } from '../actions'
@@ -9,6 +11,8 @@ import { addUser, removeUser } from '../actions'
 class Users extends Component {
 
     _presenceChannel;
+
+    _users;
 
     constructor() {
         super();
@@ -20,7 +24,7 @@ class Users extends Component {
             }
         }
 
-        this._renderUser = this._renderUser.bind(this);
+        this._userRenderer = this._userRenderer.bind(this);
     }
 
     componentDidMount() {
@@ -62,17 +66,29 @@ class Users extends Component {
     }
 
     _renderOthers() {
-        const users = this.props._users.filter(
+        this._users = this.props._users.filter(
             (user) => this._presenceChannel.members.me.id !== user.id
         );
         return (
-            <div>
-                { users.map(this._renderUser) }
-            </div>
+            <WindowScroller>
+            {
+                (props) => (
+                    <List
+                        autoHeight
+                        width = { props.width }
+                        height = { props.height }
+                        rowCount = { this._users.length }
+                        rowHeight = { 70 }
+                        rowRenderer = { this._userRenderer }
+                    />
+                )
+            }
+            </WindowScroller>
         );
     }
 
-    _renderUser(user) {
+    _userRenderer(props) {
+        const user = this._users[props.index]
         return (
             <Step key = { user.id } >
                 <Header as='h3'>
