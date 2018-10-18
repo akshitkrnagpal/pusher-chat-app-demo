@@ -47,7 +47,7 @@ class Users extends Component {
     render() {
         const { me } = this.state;
         return (
-            <Segment.Group vertical>
+            <Segment.Group>
                 <Segment key = { me.id } clearing>
                     <Header as='h2'>
                         <Image avatar src = { me.info && me.info.avatarURL } verticalAlign='middle' />
