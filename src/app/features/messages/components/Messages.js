@@ -19,7 +19,7 @@ class Messages extends Component {
     }
 
     componentDidMount() {
-        var messageChannel = pusher.subscribe('message');
+        var messageChannel = pusher.subscribe('main');
 
         messageChannel.bind('new-message', this._addMessage);
     }
