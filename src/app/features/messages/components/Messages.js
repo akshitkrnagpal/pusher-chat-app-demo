@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Comment } from 'semantic-ui-react';
 
-import { AutoSizer, List } from 'react-virtualized'
+import { AutoSizer, List } from 'react-virtualized';
+
+import { addMessage } from '../actions';
 
 class Messages extends Component {
     constructor() {
         super();
-
-        this.state = {
-            messages: []
-        };
 
         this._messageRenderer = this._messageRenderer.bind(this);
         this._addMessage = this._addMessage.bind(this);
@@ -19,7 +17,6 @@ class Messages extends Component {
 
     componentDidMount() {
         var messageChannel = this.props._pusher.subscribe('main');
-
         messageChannel.bind('new-message', this._addMessage);
     }
 
@@ -33,7 +30,7 @@ class Messages extends Component {
                             autoHeight
                             width = { props.width }
                             height = { props.height }
-                            rowCount = { this.state.messages.length }
+                            rowCount = { this.props._messages.length }
                             rowHeight = { 70 }
                             rowRenderer = { this._messageRenderer }
                         />
@@ -45,7 +42,7 @@ class Messages extends Component {
     }
 
     _messageRenderer(props) {
-        const { username, message } = this.state.messages[props.index];
+        const { username, message } = this.props._messages[props.index];
 
         return (
             <Comment key = { props.key } style = { props.style }>
@@ -58,15 +55,13 @@ class Messages extends Component {
     }
 
     _addMessage(data) {
-        this.setState( (prevState) => {
-            prevState.messages.push(data);
-            return prevState;
-        });
+        this.props.dispatch(addMessage(data))
     }
 }
 
 function _mapStateToProps(state) {
     return {
+        _messages: state.messages.messages,
         _pusher: state.pusher.pusher
     }
 }
