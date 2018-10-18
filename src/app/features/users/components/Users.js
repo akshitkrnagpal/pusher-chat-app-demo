@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Button, Image, Step, Header } from 'semantic-ui-react';
+import { Button, Image, Segment, Header } from 'semantic-ui-react';
 
 import { AutoSizer, List } from 'react-virtualized'
 
@@ -48,20 +48,21 @@ class Users extends Component {
     render() {
         const { me } = this.state;
         return (
-            <Step.Group vertical>
-                <Step key = { me.id } >
+            <Segment.Group vertical>
+                <Segment key = { me.id } clearing>
                     <Header as='h2'>
                         <Image avatar src = { me.info && me.info.avatarURL } verticalAlign='middle' />
                         <Header.Content>{ me.id }</Header.Content>
                         <Button
-                            color='teal'
+                            color = 'teal'
+                            floated = 'right'
                             onClick = { () => this.props.dispatch(logoutUser()) }>
                             Logout
                         </Button>
                     </Header>
-                </Step>
+                </Segment>
                 { this._renderOthers() }
-            </Step.Group>
+            </Segment.Group>
         );
     }
 
@@ -75,7 +76,7 @@ class Users extends Component {
                 (props) => (
                     <List
                         autoHeight
-                        width = { props.width }
+                        width = { props.width - 2 }
                         height = { props.height }
                         rowCount = { this._users.length }
                         rowHeight = { 70 }
@@ -90,12 +91,12 @@ class Users extends Component {
     _userRenderer(props) {
         const user = this._users[props.index]
         return (
-            <Step key = { user.id } >
+            <Segment key = { user.id } style = {{ ...props.style, margin: 0 }}>
                 <Header as='h3'>
                     <Image circular src = { user.info && user.info.avatarURL } verticalAlign='middle' />
                     <Header.Content>{ user.id }</Header.Content>
                 </Header>
-            </Step>
+            </Segment>
         )
     }
 }

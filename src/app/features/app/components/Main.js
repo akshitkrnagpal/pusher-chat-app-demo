@@ -8,7 +8,7 @@ class Main extends Component {
     render() {
         return (
             <Grid columns = 'equal' padded>
-                <Grid.Column style = {{ maxWidth: 400, padding: 0 }}>
+                <Grid.Column style = {{ maxWidth: 400, padding: 10 }} color = 'teal'>
                     <Users />
                 </Grid.Column>
                 <Grid.Column>

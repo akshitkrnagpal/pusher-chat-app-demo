@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Comment } from 'semantic-ui-react';
 
-import { WindowScroller, List } from 'react-virtualized'
+import { AutoSizer, List } from 'react-virtualized'
 
 import pusher from '../../../pusher';
 
@@ -26,8 +26,8 @@ class Messages extends Component {
 
     render() {
         return (
-            <Comment.Group>
-                <WindowScroller>
+            <Comment.Group style = {{ height: 'calc(100% - 60px)', margin: 0 }}>
+                <AutoSizer>
                 {
                     (props) => (
                         <List
@@ -40,7 +40,7 @@ class Messages extends Component {
                         />
                     )
                 }
-                </WindowScroller>
+                </AutoSizer>
             </Comment.Group>
         );
     }
