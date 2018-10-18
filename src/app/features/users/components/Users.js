@@ -1,30 +1,63 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Image } from 'semantic-ui-react';
+import { Divider, Image } from 'semantic-ui-react';
 
 import pusher from '../../../pusher';
 import { addUser, removeUser } from '../actions'
 
 class Users extends Component {
 
+    _presenceChannel;
+
+    constructor() {
+        super();
+
+        this.state = {
+            me: {
+                id: null,
+                avatar: null
+            }
+        }
+
+        this._renderUser = this._renderUser.bind(this);
+    }
+
     componentDidMount() {
-        var presenceChannel = pusher.subscribe('presence-main');
-        presenceChannel.bind('pusher:subscription_succeeded', (data) => {
+        this._presenceChannel = pusher.subscribe('presence-main');
+        this._presenceChannel.bind('pusher:subscription_succeeded', (data) => {
             const id_array = Object.keys(data.members);
             const members = id_array.map( (id) => { return { id, info: data.members[id] }} );
             this.props.dispatch(addUser(members));
+            this.setState({
+                me: this._presenceChannel.members.me
+            });
         });
-        presenceChannel.bind('pusher:member_added', (member) => {
+        this._presenceChannel.bind('pusher:member_added', (member) => {
             this.props.dispatch(addUser(member));
         });
-        presenceChannel.bind('pusher:member_removed', (member) => {
+        this._presenceChannel.bind('pusher:member_removed', (member) => {
             this.props.dispatch(removeUser(member));
         });
     }
 
     render() {
-        const users = this.props._users;
-        console.log(users);
+        const { me } = this.state;
+        return (
+            <div>
+                <div key = { me.id } >
+                    <Image src = { me.info && me.info.avatarURL } size = 'tiny' verticalAlign='middle' />
+                    <span>{ me.id }</span>
+                </div>
+                <Divider />
+                { this._renderOthers() }
+            </div>
+        );
+    }
+
+    _renderOthers() {
+        const users = this.props._users.filter(
+            (user) => this._presenceChannel.members.me.id !== user.id
+        );
         return (
             <div>
                 { users.map(this._renderUser) }
@@ -35,7 +68,7 @@ class Users extends Component {
     _renderUser(user) {
         return (
             <div key = { user.id } >
-                <Image verticalAlign='middle' />
+                <Image src = { user.info && user.info.avatarURL } size = 'tiny' verticalAlign='middle' />
                 <span>{ user.id }</span>
             </div>
         )
