@@ -3,7 +3,7 @@ import { Comment } from 'semantic-ui-react';
 
 import { WindowScroller, List } from 'react-virtualized'
 
-import pusher from '../pusher';
+import pusher from '../../../pusher';
 
 class Messages extends Component {
     constructor() {

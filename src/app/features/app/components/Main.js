@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 
+import { Messages, SendMessage } from '../../messages';
+
 import UserList from './UserList';
-import Messages from './Messages';
-import SendMessage from './SendMessage';
 
 class Main extends Component {
     render() {

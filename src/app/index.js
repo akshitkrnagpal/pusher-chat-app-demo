@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 
-import { Main } from './components';
+import { Main } from './features/app';
 
-class App extends Component {
+class Root extends Component {
   render() {
     return (
       <Container fluid>
@@ -13,4 +13,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Root;
