@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Button, Divider, Image } from 'semantic-ui-react';
+import { Button, Image, Step, Header } from 'semantic-ui-react';
 
 import pusher from '../../../pusher';
 import { logoutUser } from '../../login';
@@ -44,19 +44,20 @@ class Users extends Component {
     render() {
         const { me } = this.state;
         return (
-            <div>
-                <div key = { me.id } >
-                    <Image src = { me.info && me.info.avatarURL } size = 'tiny' verticalAlign='middle' />
-                    <span>{ me.id }</span>
-                    <Button
-                        color='teal'
-                        onClick = { () => this.props.dispatch(logoutUser()) }>
-                        Logout
-                    </Button>
-                </div>
-                <Divider />
+            <Step.Group vertical>
+                <Step key = { me.id } >
+                    <Header as='h2'>
+                        <Image avatar src = { me.info && me.info.avatarURL } verticalAlign='middle' />
+                        <Header.Content>{ me.id }</Header.Content>
+                        <Button
+                            color='teal'
+                            onClick = { () => this.props.dispatch(logoutUser()) }>
+                            Logout
+                        </Button>
+                    </Header>
+                </Step>
                 { this._renderOthers() }
-            </div>
+            </Step.Group>
         );
     }
 
@@ -73,10 +74,12 @@ class Users extends Component {
 
     _renderUser(user) {
         return (
-            <div key = { user.id } >
-                <Image src = { user.info && user.info.avatarURL } size = 'tiny' verticalAlign='middle' />
-                <span>{ user.id }</span>
-            </div>
+            <Step key = { user.id } >
+                <Header as='h3'>
+                    <Image circular src = { user.info && user.info.avatarURL } verticalAlign='middle' />
+                    <Header.Content>{ user.id }</Header.Content>
+                </Header>
+            </Step>
         )
     }
 }

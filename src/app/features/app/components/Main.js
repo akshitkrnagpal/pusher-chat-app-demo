@@ -8,8 +8,8 @@ class Main extends Component {
     render() {
         return (
             <Grid>
-                <Grid.Row divided columns = 'equal'>
-                    <Grid.Column width = { 4 }>
+                <Grid.Row stretched divided columns = 'equal'>
+                    <Grid.Column style = {{ maxWidth: 400, padding: 0 }}>
                         <Users />
                     </Grid.Column>
                     <Grid.Column>
