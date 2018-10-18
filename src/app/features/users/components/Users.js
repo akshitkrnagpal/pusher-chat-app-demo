@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment } from 'semantic-ui-react';
 
-class UserList extends Component {
+class Users extends Component {
     render() {
         return (
             <div>
@@ -13,4 +13,4 @@ class UserList extends Component {
     }
 }
 
-export default UserList;
+export default Users;
