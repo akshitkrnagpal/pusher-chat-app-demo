@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Divider, Image } from 'semantic-ui-react';
+import { Button, Divider, Image } from 'semantic-ui-react';
 
 import pusher from '../../../pusher';
+import { logoutUser } from '../../login';
 import { addUser, removeUser } from '../actions'
 
 class Users extends Component {
@@ -47,6 +48,11 @@ class Users extends Component {
                 <div key = { me.id } >
                     <Image src = { me.info && me.info.avatarURL } size = 'tiny' verticalAlign='middle' />
                     <span>{ me.id }</span>
+                    <Button
+                        color='teal'
+                        onClick = { () => this.props.dispatch(logoutUser()) }>
+                        Logout
+                    </Button>
                 </div>
                 <Divider />
                 { this._renderOthers() }

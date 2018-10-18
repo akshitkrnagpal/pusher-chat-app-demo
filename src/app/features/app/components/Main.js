@@ -7,14 +7,16 @@ import { Users } from '../../users';
 class Main extends Component {
     render() {
         return (
-            <Grid columns = {2} divided>
-                <Grid.Column>
-                    <Users />
-                </Grid.Column>
-                <Grid.Column>
-                    <Messages />
-                    <SendMessage />
-                </Grid.Column>
+            <Grid>
+                <Grid.Row divided columns = 'equal'>
+                    <Grid.Column width = { 4 }>
+                        <Users />
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Messages />
+                        <SendMessage />
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>
         );
     }
