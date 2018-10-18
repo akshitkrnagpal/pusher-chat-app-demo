@@ -3,22 +3,25 @@ import { Comment } from 'semantic-ui-react';
 
 import { WindowScroller, List } from 'react-virtualized'
 
-const data = [
-    {
-        'username': 'akshitkrnagpal',
-        'message': 'Hi. My name is Akshit'
-    },
-    {
-        'username': 'akshit1708',
-        'message': 'Hi Akshit. My name is also Akshit'
-    }
-];
+import pusher from '../pusher';
 
 class Messages extends Component {
     constructor() {
         super();
 
+        this.state = {
+            messages: []
+        };
+
         this._messageRenderer = this._messageRenderer.bind(this);
+        this._addMessage = this._addMessage.bind(this);
+
+    }
+
+    componentDidMount() {
+        var messageChannel = pusher.subscribe('message');
+
+        messageChannel.bind('new-message', this._addMessage);
     }
 
     render() {
@@ -31,7 +34,7 @@ class Messages extends Component {
                             autoHeight
                             width = { props.width }
                             height = { props.height }
-                            rowCount = { data.length }
+                            rowCount = { this.state.messages.length }
                             rowHeight = { 70 }
                             rowRenderer = { this._messageRenderer }
                         />
@@ -43,7 +46,7 @@ class Messages extends Component {
     }
 
     _messageRenderer(props) {
-        const { username, message } = data[props.index];
+        const { username, message } = this.state.messages[props.index];
 
         return (
             <Comment key = { props.key } style = { props.style }>
@@ -53,6 +56,13 @@ class Messages extends Component {
                 </Comment.Content>
             </Comment>
         );
+    }
+
+    _addMessage(data) {
+        this.setState( (prevState) => {
+            prevState.messages.push(data);
+            return prevState;
+        });
     }
 }
 
