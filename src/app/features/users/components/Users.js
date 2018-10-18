@@ -4,7 +4,6 @@ import { Button, Image, Segment, Header } from 'semantic-ui-react';
 
 import { AutoSizer, List } from 'react-virtualized'
 
-import pusher from '../../../pusher';
 import { logoutUser } from '../../login';
 import { addUser, removeUser } from '../actions'
 
@@ -28,7 +27,7 @@ class Users extends Component {
     }
 
     componentDidMount() {
-        this._presenceChannel = pusher.subscribe('presence-main');
+        this._presenceChannel = this.props._pusher.subscribe('presence-main');
         this._presenceChannel.bind('pusher:subscription_succeeded', (data) => {
             const id_array = Object.keys(data.members);
             const members = id_array.map( (id) => { return { id, info: data.members[id] }} );
@@ -52,7 +51,7 @@ class Users extends Component {
                 <Segment key = { me.id } clearing>
                     <Header as='h2'>
                         <Image avatar src = { me.info && me.info.avatarURL } verticalAlign='middle' />
-                        <Header.Content>{ me.id }</Header.Content>
+                        <Header.Content>{ me.info && me.info.username }</Header.Content>
                         <Button
                             color = 'teal'
                             floated = 'right'
@@ -94,7 +93,7 @@ class Users extends Component {
             <Segment key = { user.id } style = {{ ...props.style, margin: 0 }}>
                 <Header as='h3'>
                     <Image circular src = { user.info && user.info.avatarURL } verticalAlign='middle' />
-                    <Header.Content>{ user.id }</Header.Content>
+                    <Header.Content>{ user.info && user.info.username }</Header.Content>
                 </Header>
             </Segment>
         )
@@ -103,7 +102,8 @@ class Users extends Component {
 
 function _mapStateToProps(state) {
     return {
-        _users: state.users.users
+        _users: state.users.users,
+        _pusher: state.pusher.pusher
     }
 }
 

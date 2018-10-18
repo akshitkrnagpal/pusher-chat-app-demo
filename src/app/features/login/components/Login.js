@@ -1,8 +1,13 @@
+import Pusher from 'pusher-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Form, Button } from 'semantic-ui-react';
 
 import { loginUser } from '../actions';
+import { connectPusher } from '../../pusher';
+import { APP_KEY, APP_CLUSTER } from '../../../../config';
+
+Pusher.logToConsole = process.env.NODE_ENV === 'development';
 
 class Login extends Component {
     constructor() {
@@ -51,7 +56,22 @@ class Login extends Component {
         if(!username || 0 === username.length) {
             return;
         }
-        this.props.dispatch(loginUser(username));
+
+        const pusher = new Pusher(APP_KEY, {
+            cluster: APP_CLUSTER,
+            auth: {
+                params: {
+                    username
+                }
+            }
+        });
+
+        pusher.connection.bind('connected', (data) => {
+            this.props.dispatch(loginUser(data.socket_id))
+        });
+        pusher.connection.bind('error', console.log);
+
+        this.props.dispatch(connectPusher(pusher));
     }
 }
 

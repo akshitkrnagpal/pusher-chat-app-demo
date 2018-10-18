@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Comment } from 'semantic-ui-react';
 
 import { AutoSizer, List } from 'react-virtualized'
-
-import pusher from '../../../pusher';
 
 class Messages extends Component {
     constructor() {
@@ -19,7 +18,7 @@ class Messages extends Component {
     }
 
     componentDidMount() {
-        var messageChannel = pusher.subscribe('main');
+        var messageChannel = this.props._pusher.subscribe('main');
 
         messageChannel.bind('new-message', this._addMessage);
     }
@@ -66,4 +65,10 @@ class Messages extends Component {
     }
 }
 
-export default Messages;
+function _mapStateToProps(state) {
+    return {
+        _pusher: state.pusher.pusher
+    }
+}
+
+export default connect(_mapStateToProps)(Messages);

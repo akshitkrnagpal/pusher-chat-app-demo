@@ -5,7 +5,7 @@ const port = 3002;
 
 const Pusher = require('pusher');
 
-const { APP_ID, APP_KEY, APP_SECRET, APP_CLUSTER } =  require('./config'); 
+const { APP_ID, APP_KEY, APP_SECRET, APP_CLUSTER } =  require('./config');
 
 const pusher = new Pusher({
     appId: APP_ID,
@@ -34,11 +34,13 @@ function getAvatarURL(name) {
 app.post('/pusher/auth', function(req, res) {
     const socketId = req.body.socket_id;
     const channel = req.body.channel_name;
+    const username = req.body.username;
 
     const presenceData = {
         user_id:  socketId,
         user_info: {
-            avatarURL: getAvatarURL(AVATAR_NAMES[Math.floor(Math.random()*AVATAR_NAMES.length)])
+            avatarURL: getAvatarURL(AVATAR_NAMES[Math.floor(Math.random()*AVATAR_NAMES.length)]),
+            username
         }
     };
 
