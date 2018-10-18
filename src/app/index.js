@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
+import { Provider } from 'react-redux';
 
-import { Main } from './features/app';
+import { App } from './features/app';
+import { store } from './features/redux';
 
 class Root extends Component {
-  render() {
-    return (
-      <Container fluid>
-        <Main />
-      </Container>
-    );
-  }
+    render() {
+        return (
+            <Provider store = {store}>
+                <App />
+            </Provider>
+        );
+    }
 }
 
 export default Root;
