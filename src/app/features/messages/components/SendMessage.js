@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
@@ -43,7 +44,7 @@ class SendMessage extends Component {
         }
 
         axios.post('http://localhost:3002/message', {
-            username: 'akshitkrnagpal',
+            username: this.props._username,
             message: this.state.message
         }).then( this._clearInput ).catch( function(error) {
             console.log(error)
@@ -57,4 +58,10 @@ class SendMessage extends Component {
     }
 }
 
-export default SendMessage;
+function _mapStateToProps(state) {
+    return {
+        _username: state.login.username
+    }
+}
+
+export default connect(_mapStateToProps)(SendMessage);
