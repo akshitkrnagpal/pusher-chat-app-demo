@@ -43,7 +43,7 @@ class SendMessage extends Component {
             return;
         }
 
-        axios.post('http://localhost:3002/message', {
+        axios.post('/message', {
             username: this.props._username,
             message: this.state.message
         }).then( this._clearInput ).catch( function(error) {

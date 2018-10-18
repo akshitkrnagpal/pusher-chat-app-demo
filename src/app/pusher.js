@@ -1,11 +1,11 @@
 import Pusher from 'pusher-js';
 
-Pusher.logToConsole = true;
+import { APP_KEY, APP_CLUSTER } from '../config';
 
-var pusher = new Pusher('6e9f03e08571f8ae78f2', {
-    authEndpoint: 'http://localhost:3002/pusher/auth',
-    authTransport: 'jsonp',
-    cluster: 'ap2'
+Pusher.logToConsole = process.env.NODE_ENV === 'development';
+
+var pusher = new Pusher(APP_KEY, {
+    cluster: APP_CLUSTER
 });
 
 export default pusher;
