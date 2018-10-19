@@ -22,7 +22,7 @@ class Messages extends Component {
 
     render() {
         return (
-            <Comment.Group style = {{ height: 'calc(100% - 60px)', margin: 0 }}>
+            <Comment.Group style = {{ height: 'calc(100% - 5em)', margin: 0, overflow: 'hidden scroll', maxWidth: 'unset' }}>
                 <AutoSizer>
                 {
                     (props) => (

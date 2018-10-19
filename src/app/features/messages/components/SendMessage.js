@@ -17,7 +17,7 @@ class SendMessage extends Component {
     }
     render() {
         return (
-            <Form>
+            <Form style = {{ height: '5em', padding: '2em 0' }}>
                 <Form.Input
                     fluid
                     placeholder = 'Enter Message'
