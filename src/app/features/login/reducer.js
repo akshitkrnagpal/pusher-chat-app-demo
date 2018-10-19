@@ -1,10 +1,16 @@
+// @flow
+
 import { LOGIN_USER, LOGOUT_USER } from './actionTypes';
 
-const DEFAULT_STATE = {
+type State = {
+    id: string | typeof undefined;
+};
+
+const DEFAULT_STATE: State = {
     id: undefined
 };
 
-export default (state = DEFAULT_STATE, action) => {
+export default (state: State = DEFAULT_STATE, action: Object) => {
     switch (action.type) {
         case LOGIN_USER:
             return {

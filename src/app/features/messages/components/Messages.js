@@ -1,14 +1,36 @@
+// @flow
+
 import React, { Component } from 'react';
+import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Comment } from 'semantic-ui-react';
 
 import { AutoSizer, List } from 'react-virtualized';
 
 import { addMessage } from '../actions';
+import type { Message } from '../types';
 
-class Messages extends Component {
-    constructor() {
-        super();
+import type { User } from '../../users';
+
+type Props = {
+    // Redux Dispatch
+    dispatch: Dispatch<*>;
+
+    // Messages
+    _messages: Array<Message>;
+
+    // Pusher
+    _pusher: any;
+
+    // Users
+    _users: Array<User>;
+};
+
+type State = {};
+
+class Messages extends Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
 
         this._messageRenderer = this._messageRenderer.bind(this);
         this._addMessage = this._addMessage.bind(this);
@@ -41,9 +63,12 @@ class Messages extends Component {
         );
     }
 
+    _messageRenderer: (*) => void;
+
     _messageRenderer(props) {
         const { user_id, message } = this.props._messages[props.index];
-        const { username, avatarURL } = this.props._users.find(user => user.id === user_id).info;
+        const user: User = this.props._users.find(user => user.id === user_id);
+        const { username, avatarURL } = user && user.info;
         return (
             <Comment key = { props.key } style = { props.style }>
                 <Comment.Avatar src = { avatarURL } />
@@ -54,6 +79,8 @@ class Messages extends Component {
             </Comment>
         );
     }
+
+    _addMessage: (*) => void;
 
     _addMessage(data) {
         this.props.dispatch(addMessage(data))

@@ -1,5 +1,8 @@
+// @flow
+
 import Pusher from 'pusher-js';
 import React, { Component } from 'react';
+import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, Form, Button } from 'semantic-ui-react';
 
@@ -9,7 +12,17 @@ import { APP_KEY, APP_CLUSTER } from '../../../../config';
 
 Pusher.logToConsole = process.env.NODE_ENV === 'development';
 
-class Login extends Component {
+type Props = {
+    // Redux dispatch
+    dispatch: Dispatch<*>;
+};
+
+type State = {
+    // username
+    username: string;
+}
+
+class Login extends Component<Props, State> {
     constructor() {
         super()
 
@@ -20,6 +33,7 @@ class Login extends Component {
         this._onChange = this._onChange.bind(this);
         this._onSubmit = this._onSubmit.bind(this);
     }
+
     render() {
         return (
             <Grid textAlign = 'center' verticalAlign = 'middle' style = {{ height: '100%' }}>
@@ -45,11 +59,15 @@ class Login extends Component {
         );
     }
 
+    _onChange: (*) => void;
+
     _onChange(event) {
         this.setState({
             username: event.target.value
         });
     }
+
+    _onSubmit: (*) => void;
 
     _onSubmit() {
         const { username } = this.state;

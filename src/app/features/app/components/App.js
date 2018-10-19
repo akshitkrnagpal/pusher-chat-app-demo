@@ -1,10 +1,18 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Login } from '../../login';
 import Main from './Main';
 
-class App extends Component {
+type Props = {
+    // Is user logged in.
+    _loggedIn: boolean;
+};
+
+type State = {};
+
+class App extends Component<Props, State> {
     render() {
         if (this.props._loggedIn) {
             return <Main />;
@@ -14,7 +22,7 @@ class App extends Component {
     }
 }
 
-function _mapStateToProps(state) {
+function _mapStateToProps(state: Object) {
     return {
         _loggedIn: state.login.id !== undefined
     }

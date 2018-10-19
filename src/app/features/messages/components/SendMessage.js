@@ -1,11 +1,27 @@
+// @flow
+
 import React, { Component } from 'react';
+import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
-class SendMessage extends Component {
-    constructor() {
-        super()
+type Props = {
+    // Redux Dispatch
+    dispatch: Dispatch<*>;
+
+    // User ID
+    _id: string;
+};
+
+type State = {
+    // Message
+    message: string;
+};
+
+class SendMessage extends Component<Props, State> {
+    constructor(props: Props) {
+        super(props)
 
         this.state = {
             message: ''
@@ -31,11 +47,15 @@ class SendMessage extends Component {
         );
     }
 
+    _onChange: (*) => void;
+
     _onChange(event) {
         this.setState({
             message: event.target.value
         });
     }
+
+    _onSubmit: (*) => void;
 
     _onSubmit() {
         const { message } = this.state;
@@ -50,6 +70,8 @@ class SendMessage extends Component {
             console.log(error)
         });
     }
+
+    _clearInput: (*) => void;
 
     _clearInput() {
         this.setState({

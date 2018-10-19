@@ -1,4 +1,7 @@
+// @flow
+
 import React, { Component } from 'react';
+import type { Dispatch } from 'redux';
 import { connect } from 'react-redux'
 import { Button, Image, Segment, Header } from 'semantic-ui-react';
 
@@ -6,20 +9,40 @@ import { AutoSizer, List } from 'react-virtualized'
 
 import { logoutUser } from '../../login';
 import { addUser, removeUser } from '../actions'
+import type { User } from '../types';
 
-class Users extends Component {
+type Props = {
+    // Redux dispatch
+    dispatch: Dispatch<*>;
+
+    // Pusher
+    _pusher: any;
+
+    // All Users
+    _users: Array<User>;
+};
+
+type State = {
+    // My User
+    me: User;
+};
+
+class Users extends Component<Props, State> {
 
     _presenceChannel;
 
     _users;
 
-    constructor() {
-        super();
+    constructor(props: Props) {
+        super(props);
 
         this.state = {
             me: {
-                id: null,
-                avatar: null
+                id: undefined,
+                info: {
+                    avatarURL: undefined,
+                    username: undefined
+                }
             }
         }
 
@@ -86,6 +109,8 @@ class Users extends Component {
             </AutoSizer>
         );
     }
+
+    _userRenderer: (*) => void;
 
     _userRenderer(props) {
         const user = this._users[props.index]

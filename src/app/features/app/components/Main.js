@@ -1,10 +1,16 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 
 import { Messages, SendMessage } from '../../messages';
 import { Users } from '../../users';
 
-class Main extends Component {
+type Props = {};
+
+type State = {};
+
+class Main extends Component<Props, State> {
     render() {
         return (
             <Grid columns = 'equal' padded>

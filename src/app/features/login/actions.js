@@ -1,6 +1,8 @@
+// @flow
+
 import { LOGIN_USER, LOGOUT_USER } from './actionTypes';
 
-export function loginUser(id) {
+export function loginUser(id: string) {
     return {
         type: LOGIN_USER,
         id
