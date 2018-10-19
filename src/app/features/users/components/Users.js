@@ -8,6 +8,7 @@ import { Button, Image, Segment, Header } from 'semantic-ui-react';
 import { AutoSizer, List } from 'react-virtualized'
 
 import { logoutUser } from '../../login';
+import { disconnectPusher } from '../../pusher';
 import { addUser, removeUser } from '../actions'
 import type { User } from '../types';
 
@@ -67,6 +68,10 @@ class Users extends Component<Props, State> {
         });
     }
 
+    componentWillUnmount() {
+        this.props.dispatch(disconnectPusher());
+    }
+
     render() {
         const { me } = this.state;
         return (
@@ -78,7 +83,10 @@ class Users extends Component<Props, State> {
                         <Button
                             color = 'teal'
                             floated = 'right'
-                            onClick = { () => this.props.dispatch(logoutUser()) }>
+                            onClick = { () => {
+                                this.props.dispatch(logoutUser());
+                                this.props.dispatch(removeUser(me));
+                            }}>
                             Logout
                         </Button>
                     </Header>
@@ -90,7 +98,7 @@ class Users extends Component<Props, State> {
 
     _renderOthers() {
         this._users = this.props._users.filter(
-            (user) => this._presenceChannel.members.me.id !== user.id
+            (user) => this.state.me.id !== user.id
         );
         return (
             <AutoSizer>
