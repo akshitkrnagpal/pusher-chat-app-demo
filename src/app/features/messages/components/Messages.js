@@ -43,9 +43,10 @@ class Messages extends Component {
 
     _messageRenderer(props) {
         const { user_id, message } = this.props._messages[props.index];
-        const { username } = this.props._users.find(user => user.id === user_id).info;
+        const { username, avatarURL } = this.props._users.find(user => user.id === user_id).info;
         return (
             <Comment key = { props.key } style = { props.style }>
+                <Comment.Avatar src = { avatarURL } />
                 <Comment.Content>
                     <Comment.Author> { username } </Comment.Author>
                     <Comment.Text> { message } </Comment.Text>
