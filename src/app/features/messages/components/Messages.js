@@ -42,8 +42,8 @@ class Messages extends Component {
     }
 
     _messageRenderer(props) {
-        const { username, message } = this.props._messages[props.index];
-
+        const { user_id, message } = this.props._messages[props.index];
+        const { username } = this.props._users.find(user => user.id === user_id).info;
         return (
             <Comment key = { props.key } style = { props.style }>
                 <Comment.Content>
@@ -61,6 +61,7 @@ class Messages extends Component {
 
 function _mapStateToProps(state) {
     return {
+        _users: state.users.users,
         _messages: state.messages.messages,
         _pusher: state.pusher.pusher
     }

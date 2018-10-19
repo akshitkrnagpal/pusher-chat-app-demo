@@ -44,7 +44,7 @@ class SendMessage extends Component {
         }
 
         axios.post('/message', {
-            username: this.props._username,
+            user_id: this.props._id,
             message: this.state.message
         }).then( this._clearInput ).catch( function(error) {
             console.log(error)
@@ -60,7 +60,7 @@ class SendMessage extends Component {
 
 function _mapStateToProps(state) {
     return {
-        _username: state.login.username
+        _id: state.login.id
     }
 }
 

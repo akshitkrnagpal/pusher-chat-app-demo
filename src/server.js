@@ -50,7 +50,7 @@ app.post('/pusher/auth', function(req, res) {
 
 app.post('/message', (req, res) => {
     const newMessage = {
-        username: req.body.username,
+        user_id: req.body.user_id,
         message: req.body.message
     };
     pusher.trigger('main', 'new-message', newMessage);
