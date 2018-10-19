@@ -18,7 +18,7 @@
   },
   "proxy": "http://localhost:3002",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently 'react-scripts start' 'nodemon src/server.js'",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -34,6 +34,7 @@
   ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "concurrently": "^4.0.1",
     "nodemon": "^1.18.4"
   }
 }
