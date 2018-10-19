@@ -4,7 +4,7 @@ A broadcast chat app build using [Pusher API](https://pusher.com/)
 
 This project was bootstrapped with [create-react-app](https://github.com/facebook/create-react-app).
 Client side is build with [React](https://reactjs.org/), [Redux](https://redux.js.org) and [Semantic UI React](http://react.semantic-ui.com/).
-Server side is built with Express 
+Server side is built with Express
 
 ## Getting Started
 
@@ -23,3 +23,7 @@ Server side is built with Express
     2. Messages Column
         1. At the bottom - Message Input and Send. Submission sends a post request to server and the server broadcasts the message suing Pusher API.
         2. Above - `react-virtualized` list of messages.
+
+## Screenshot
+
+![](screenshot.png)
