@@ -10,7 +10,7 @@ Server side is built with Express
 
 1. Clone this repo.
 2. `yarn install`
-3. Rename `src/config.sample.js` to `src/config.js` and fill credentials.
+3. Set Pusher Credentials in Environment Variables. See `src/config.js`.
 4. `yarn start`
 
 ## Walkthrough
