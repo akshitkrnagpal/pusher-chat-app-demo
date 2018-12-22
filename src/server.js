@@ -1,7 +1,7 @@
 const express =  require('express');
 const app = express();
 const path = require('path');
-const port = 3002;
+const port = process.env.PORT || 3002;
 
 const Pusher = require('pusher');
 
@@ -16,8 +16,8 @@ const pusher = new Pusher({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-/*app.use(express.static(path.join(__dirname, 'public', 'index.html')))
-app.use(function (req, res, next) {
+app.use(express.static(path.join(__dirname, '../build')));
+/*app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');

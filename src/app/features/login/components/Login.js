@@ -8,7 +8,6 @@ import { Grid, Form, Button } from 'semantic-ui-react';
 
 import { loginUser } from '../actions';
 import { connectPusher } from '../../pusher';
-import { APP_KEY, APP_CLUSTER } from '../../../../config';
 
 Pusher.logToConsole = process.env.NODE_ENV === 'development';
 
@@ -75,8 +74,8 @@ class Login extends Component<Props, State> {
             return;
         }
 
-        const pusher = new Pusher(APP_KEY, {
-            cluster: APP_CLUSTER,
+        const pusher = new Pusher('6e9f03e08571f8ae78f2', {
+            cluster: 'ap2',
             auth: {
                 params: {
                     username

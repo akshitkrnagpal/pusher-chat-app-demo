@@ -1,6 +1,6 @@
 {
-  "name": "react-test-1",
-  "version": "0.1.0",
+  "name": "pusher-chat-app-demo",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
@@ -16,13 +16,14 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.82.5"
   },
-  "proxy": "http://localhost:3002",
   "scripts": {
     "start": "concurrently 'react-scripts start' 'nodemon src/server.js'",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "yarn build"
   },
+  "homepage": "https://pusher-chat-app-demo.herokuapp.com/",
   "eslintConfig": {
     "extends": "react-app"
   },
