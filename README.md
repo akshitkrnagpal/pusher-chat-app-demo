@@ -1,5 +1,7 @@
 # Many-to-Many Chat App
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/akshitkrnagpal/pusher-chat-app-demo.svg)](https://greenkeeper.io/)
+
 A broadcast chat app build using [Pusher API](https://pusher.com/)
 
 This project was bootstrapped with [create-react-app](https://github.com/facebook/create-react-app).
